@@ -1,9 +1,19 @@
-import pygame
+import pygame, random
 
 class gameObject:
     class collideableObject:
-        def __init__(self, radius: int, to_collide):
-            pass # TODO: [IMPORTANT] Finish the collideableObject class.
+        def __init__(self, radius: int, pos: list):
+            self.radius = radius
+            self.pos = pos
+            self.last_pos = pos
+
+    def check_collision(self, object1: collideableObject, object2: collideableObject):
+        distance = [abs(object1.pos[0] - object2.pos[0]), abs(object1.pos[1] - object2.pos[1])]
+        if min(distance) > (object1.radius + object2.radius):
+            return
+        randobj: self.collideableObject = random.random([object1, object2])
+        randobj.pos = randobj.last_pos
+        
 
 class character:
     def __init__(self, pygame: pygame, start_pos: tuple[int, int], player: bool = False, chase_player: bool = False, collisions: list = []) -> None:
